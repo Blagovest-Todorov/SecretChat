@@ -42,8 +42,8 @@ namespace SecretChat
                         int idx = concealedMessage.IndexOf(substring);
                         int length = substring.Length;
                         concealedMessage = concealedMessage.Remove(idx, length);
-                        char[] reversedArr = substring.Reverse().ToArray();
-                        string reversed = string.Join("", reversedArr);
+
+                        string reversed = GetReversedString(substring);
 
                         concealedMessage = concealedMessage + reversed;
 
@@ -60,21 +60,24 @@ namespace SecretChat
                     string substr = parts[1];
                     string replacement = parts[2];
 
-                    while (true)
-                    {
-                        if (!concealedMessage.Contains(substr))
-                        {
-                            break;
-                        }
-
-                        concealedMessage = concealedMessage.Replace(substr, replacement);
-                    }
-
+                    concealedMessage = concealedMessage.Replace(substr, replacement);
                     Console.WriteLine(concealedMessage);
                 }
             }
 
-            Console.WriteLine($"You have a new text message: {concealedMessage}");           
+            Console.WriteLine($"You have a new text message: {concealedMessage}");
+        }
+
+        private static string GetReversedString(string inputString)
+        {
+            string result = string.Empty;
+
+            for (int i = inputString.Length - 1; i >= 0; i--)
+            {
+                result += inputString[i];
+            }
+
+            return result;
         }
     }
 }
